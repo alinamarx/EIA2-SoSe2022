@@ -8,7 +8,7 @@ namespace EventInspector {
         let body: HTMLElement = document.querySelector("body");
         let div0: HTMLElement = document.getElementById("div0");
         let div1: HTMLElement = document.getElementById("div1");
-        let button: HTMLElement = document.getElementById("button");
+        let button: HTMLElement = document.querySelector("button");
 
         //Mousemove-Listener on document
         document.addEventListener("mousemove", setInfoBox);
@@ -22,6 +22,10 @@ namespace EventInspector {
         body.addEventListener("keyup", logInfo);
         div0.addEventListener("keyup", logInfo);
         div1.addEventListener("keyup", logInfo);
+
+        //Bonus: Click-Listener for Button
+        button.addEventListener("click", handleClick);
+        document.addEventListener("target", handleTarget);
     }
 
     function setInfoBox(_event: MouseEvent): void {
@@ -42,5 +46,13 @@ namespace EventInspector {
 
     function logInfo(_event: Event): void {
         console.log(_event.type, _event.target, _event.currentTarget, _event);
+    }
+
+    function handleClick(_event: Event): void  {
+        let customEvent: CustomEvent = new CustomEvent("target", { bubbles: true });
+        _event.target?.dispatchEvent(customEvent);
+    }
+    function handleTarget(_event: Event): void {
+        alert(_event.composedPath());
     }
 }
