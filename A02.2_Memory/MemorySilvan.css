@@ -1,0 +1,48 @@
+h1 {
+    text-align: center;
+    font-size: 220%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
+    text-align: left;
+    font-size: 150%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrapper {
+    background-color: aliceblue;
+    border-radius: 0.5em;
+    border: 0.4em solid cornflowerblue;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div#wrapper div{
+    display: inline-flex;
+    font-size: 50px;
+    padding: 1% 1% 1% 1%;
+    margin: 1% 1% 1% 1%;
+}
+
+div#wrapper div:hover {
+    cursor: pointer;
+}
+
+div[hidden = true] {
+    background-color: cornflowerblue;
+}
+div[hidden = false] {
+    background-color: cornflowerblue;
+}
+div[hidden = deleted] {
+    visibility: hidden;
+    pointer-events: none;
+}
+element[noninteraction = "true"] {
+    pointer-events: none;
+}
+element[noninteraction = "false"] {
+    pointer-events: all;
+}
