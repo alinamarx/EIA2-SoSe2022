@@ -6,7 +6,7 @@ const w: number = 1;
 //w = w + 1;
 console.log(w);
 
-let a [] = [7, true, "Hallo"];
+//let a [] = [7, true, "Hallo"];
 //console.log(a);
 //console.log(a[0]);
 //console.log(a[3]);
@@ -15,15 +15,15 @@ let a [] = [7, true, "Hallo"];
 //console.log(a[3]);
 //console.log(a[5]);
 
-let s = {"zahl": 7, "wahr": true, text: "Hallo"};
-console.log(s);
-console.log(s["zahl"]);
-console.log(s.zahl);
+// let s = {"zahl": 7, "wahr": true, text: "Hallo"};
+// console.log(s);
+// console.log(s["zahl"]);
+// console.log(s.zahl);
 //console.log(s.geburtstag);
 
-s[4] = [101];
-console.log(s);
-console.log(s[4]);
+// s[4] = [101];
+// console.log(s);
+// console.log(s[4]);
 
 interface Daten {
     Name: string;
@@ -32,7 +32,7 @@ interface Daten {
 }
 
 let studenten: Daten [] = [];
-studenten.push({Name: "Alina", alter: 18, geimpft: {1: true, 2: true, 3: true} });
+//studenten.push({Name: "Alina", alter: 18, geimpft: {1: true, 2: true, 3: true} });
 
 
 function isDivisible (dividend: number, divisor: number): boolean {

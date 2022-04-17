@@ -1,14 +1,15 @@
+"use strict";
 window.addEventListener("load", handleLoad);
-var seconds = 0;
-var minutes = 0;
-var clicked = 0;
-var toCheck = [];
+let seconds = 0;
+let minutes = 0;
+let clicked = 0;
+let toCheck = [];
 function handleLoad() {
     createPrompt();
 }
 function createPrompt() {
-    var amount = prompt("Mit wie vielen Karten möchtest du spielen? Möglich sind 10 bis 50 Karten", "20");
-    var cardAmount = parseInt(amount);
+    let amount = prompt("Mit wie vielen Karten möchtest du spielen? Möglich sind 10 bis 50 Karten", "20");
+    let cardAmount = parseInt(amount);
     if (cardAmount % 2 == 0 && cardAmount <= 50 && cardAmount >= 10) {
         createCards(cardAmount);
     }
@@ -17,8 +18,8 @@ function createPrompt() {
     }
 }
 function createCards(_amount) {
-    var cards = [];
-    for (var i = _amount; i > 0; i--) {
+    let cards = [];
+    for (let i = _amount; i > 0; i--) {
         if (i % 2 == 0) {
             cards.push(i);
             cards.push(i);
@@ -27,16 +28,16 @@ function createCards(_amount) {
     shuffleCards(cards);
 }
 function shuffleCards(_cards) {
-    for (var i = _cards.length; i > 0; i--) {
-        var randomNumber = Math.floor(Math.random() * _cards.length);
+    for (let i = _cards.length; i > 0; i--) {
+        let randomNumber = Math.floor(Math.random() * _cards.length);
         playCard(_cards, randomNumber);
         _cards.splice(randomNumber, 1);
     }
 }
 function playCard(_cards, _randomNumber) {
-    var card = document.createElement("div");
+    let card = document.createElement("div");
     card.className = _cards[_randomNumber] + "";
-    var wrapper = document.getElementById("wrapper");
+    let wrapper = document.getElementById("wrapper");
     wrapper.appendChild(card);
     console.log(wrapper);
     card.addEventListener("click", clickCard);
@@ -46,7 +47,7 @@ function playCard(_cards, _randomNumber) {
 function clickCard() {
     this.setAttribute("noninteraction", true);
     if (clicked > 0) {
-        var body = document.querySelector("body");
+        let body = document.querySelector("body");
         body.setAttribute("noninteraction", "true");
     }
     clicked++;
@@ -56,11 +57,11 @@ function clickCard() {
 }
 function click() {
     if (clicked == 2) {
-        var checkOne = toCheck[0];
-        var checkTwo = toCheck[1];
+        let checkOne = toCheck[0];
+        let checkTwo = toCheck[1];
         if (checkOne == checkTwo) {
             alert("You found a pair!");
-            var elements = document.getElementsByClassName(checkOne + "");
+            let elements = document.getElementsByClassName(checkOne + "");
             elements[0].setAttribute("hidden", "deleted");
             elements[1].setAttribute("hidden", "deleted");
             if (document.querySelectorAll("div div").length == document.querySelectorAll("[hidden = 'deleted']").length) {
@@ -69,8 +70,8 @@ function click() {
             }
         }
         else {
-            var elementsCheckOne = document.getElementsByClassName(checkOne + "");
-            var elementsCheckTwo = document.getElementsByClassName(checkTwo + "");
+            let elementsCheckOne = document.getElementsByClassName(checkOne + "");
+            let elementsCheckTwo = document.getElementsByClassName(checkTwo + "");
             elementsCheckOne[0].removeAttribute("noninteraction");
             elementsCheckOne[1].removeAttribute("noninteraction");
             elementsCheckTwo[0].removeAttribute("noninteraction");
@@ -83,7 +84,7 @@ function click() {
         toCheck = [];
         clicked = 0;
     }
-    var body = document.querySelector("body");
+    let body = document.querySelector("body");
     body.setAttribute("noninteraction", "false");
 }
 function startTimer() {
@@ -95,7 +96,7 @@ function timer() {
         seconds = 0;
         minutes++;
     }
-    var timeHTML = document.querySelector("#timer");
+    let timeHTML = document.querySelector("#timer");
     timeHTML.innerHTML = minutes + ":" + seconds;
 }
 //# sourceMappingURL=MemorySilvan.js.map

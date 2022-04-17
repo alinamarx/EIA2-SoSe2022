@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory</title>
+    <script src="./MemoryA.js"></script>
+    <link rel="stylesheet" href="./Memory.css">
+</head>
+<body>
+    <h1>MEMORY</h1>
+    <h2 id="timer">00:00</h2>
+    <div id="wrapper" width="100%" background-color="#000000"></div>
+    <form id="form">
+        <fieldset>
+            <span>How many pairs do you want to play with? </span>
+            <input type="number" name="Stepper" step="1" min="5" max="25" value="5"/>
+            <br>
+            <span>How big should the cards be? </span>
+            <input id="cardsize" type="range"  step="1" min="3" max="16" value="7"><br>
+            <span>Color of: </span>
+            <span>background </span><input type="color" name="Color" placeholder="white" id="color" value="#ffffff">
+            <span>cards </span><input type="color" name="Color" placeholder="burgundy" id="color" value="#ff0000">
+            <span>font </span><input type="color" name="Color" placeholder="black" id="color" value="#000000">
+            <br>
+            <span>Font-family</span>
+            <select name="font" id="font">
+                <option value="Arial, Helvetica, sans-serif">Arial</option>
+                <option value="'Courier New', Courier, monospace">Courier</option>
+                <option value="'Times New Roman', Times, serif">Times New Roman</option>
+            </select>
+            <br>
+            <br>
+            <button id="start">Start</button>
+        </fieldset>
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* Teilweise aus Implementation von Silvan */
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+h1 {
+    text-align: center;
+    font-size: 200%;
+    font-weight: 800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#timer{
+    font-weight: 700;
+    text-align: justify;
+    margin-left: 5%;
+    visibility: hidden;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+}
+fieldset {
+    display: grid;
+    width: fit-content;
+    align-self: center;
+    text-align: left;
+}
+option[value="Arial, Helvetica, sans-serif"] {
+    font-family: Arial, Helvetica, sans-serif;
+}
+option[value="'Times New Roman', Times, serif"] {
+    font-family: 'Times New Roman', Times, serif;
+}
+option[value="'Courier New', Courier, monospace"] {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+div.card{
+    background-color: #f00;
+    margin: 0.8em;
+    height: 7em;
+    width: 7em;
+}
+div div:hover {
+    cursor: pointer;
+}
+
+div[hidden = deleted] {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body[noninteraction = "true"] {
+    pointer-events: none;
+}
+body[noninteraction = "false"] {
+    pointer-events: all;
+}
+div div[noninteraction = "true"] {
+    pointer-events: none;
+}
+div div[noninteraction = "false"] {
+    pointer-events: all;
+}
+
+#card{
+    position: relative;
+    left: 39px;
+}

@@ -1,12 +1,13 @@
+"use strict";
 var EventInspector;
 (function (EventInspector) {
     //When the window has loaded, EventListeners are installed
     window.addEventListener("load", handleLoad);
     function handleLoad() {
-        var body = document.querySelector("body");
-        var div0 = document.getElementById("div0");
-        var div1 = document.getElementById("div1");
-        var button = document.querySelector("button");
+        let body = document.querySelector("body");
+        let div0 = document.getElementById("div0");
+        let div1 = document.getElementById("div1");
+        let button = document.querySelector("button");
         //Mousemove-Listener on document
         document.addEventListener("mousemove", setInfoBox);
         //Click- and keyup-Listener for each document, body and divs
@@ -24,10 +25,10 @@ var EventInspector;
     }
     function setInfoBox(_event) {
         //X- and Y-coordinates of the mouse
-        var mousex = _event.clientX;
-        var mousey = _event.clientY;
+        let mousex = _event.clientX;
+        let mousey = _event.clientY;
         //creating span with information
-        var span = document.querySelector("span");
+        let span = document.querySelector("span");
         span.innerHTML = "Mouse position: <br>X-Coordinate = " + mousex + "<br>Y-Coordinate = " + mousey + "<br><br>Event-Target = " + _event.target;
         //placing span at position of mouse
         span.style.position = "fixed";
@@ -38,9 +39,8 @@ var EventInspector;
         console.log(_event.type, _event.target, _event.currentTarget, _event);
     }
     function handleClick(_event) {
-        var _a;
-        var customEvent = new CustomEvent("target", { bubbles: true });
-        (_a = _event.target) === null || _a === void 0 ? void 0 : _a.dispatchEvent(customEvent);
+        let customEvent = new CustomEvent("target", { bubbles: true });
+        _event.target?.dispatchEvent(customEvent);
     }
     function handleTarget(_event) {
         alert(_event.composedPath());

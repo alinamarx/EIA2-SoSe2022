@@ -5,10 +5,10 @@ namespace EventInspector {
 
     function handleLoad(): void {
 
-        let body: HTMLElement = document.querySelector("body");
-        let div0: HTMLElement = document.getElementById("div0");
-        let div1: HTMLElement = document.getElementById("div1");
-        let button: HTMLElement = document.querySelector("button");
+        let body: HTMLElement = <HTMLElement>document.querySelector("body");
+        let div0: HTMLElement = <HTMLElement>document.getElementById("div0");
+        let div1: HTMLElement = <HTMLElement>document.getElementById("div1");
+        let button: HTMLElement = <HTMLElement>document.querySelector("button");
 
         //Mousemove-Listener on document
         document.addEventListener("mousemove", setInfoBox);
@@ -34,7 +34,7 @@ namespace EventInspector {
         let mousey: number = _event.clientY;
 
         //creating span with information
-        let span: HTMLSpanElement = document.querySelector("span");
+        let span: HTMLSpanElement = <HTMLSpanElement>document.querySelector("span");
         span.innerHTML = "Mouse position: <br>X-Coordinate = " + mousex + "<br>Y-Coordinate = " + mousey + "<br><br>Event-Target = " + _event.target;
 
         //placing span at position of mouse
