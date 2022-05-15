@@ -1,15 +1,12 @@
 "use strict";
 var CanvasBeach;
 (function (CanvasBeach) {
-    window.addEventListener("load", handleLoad);
+    window.addEventListener("load", paintCanvas);
     let canvas;
     let crc2;
-    function handleLoad() {
+    function paintCanvas() {
         canvas = document.querySelector("canvas");
         crc2 = canvas.getContext("2d");
-        paintCanvas();
-    }
-    function paintCanvas() {
         colorBackground();
         drawSun();
         drawClouds({ x: 480, y: 140 });

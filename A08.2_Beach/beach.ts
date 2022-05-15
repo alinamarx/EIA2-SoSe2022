@@ -1,6 +1,6 @@
 namespace CanvasBeach {
 
-    window.addEventListener("load", handleLoad);
+    window.addEventListener("load", paintCanvas);
     let canvas: HTMLCanvasElement;
     let crc2: CanvasRenderingContext2D;
 
@@ -9,14 +9,9 @@ namespace CanvasBeach {
         y: number;
     }
 
-    function handleLoad(): void {
+    function paintCanvas(): void {
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
-
-        paintCanvas();
-    }
-
-    function paintCanvas(): void {
 
         colorBackground();
         drawSun();
