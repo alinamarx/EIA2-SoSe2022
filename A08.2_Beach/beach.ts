@@ -163,9 +163,9 @@ namespace CanvasBeach {
 
     }
 
-    function drawPeople(state: string, _position: Vector): void {
+    function drawPeople(_state: string, _position: Vector): void {
 
-        if (state == "swimming") {
+        if (_state == "swimming") {
             crc2.save();
             crc2.translate(_position.x, _position.y);
             crc2.save();
@@ -200,7 +200,7 @@ namespace CanvasBeach {
             crc2.fill();
             crc2.restore();
 
-        } else if (state == "surfing") {
+        } else if (_state == "surfing") {
 
             crc2.save();
             crc2.translate(_position.x, _position.y);
@@ -236,7 +236,7 @@ namespace CanvasBeach {
             crc2.fill(person);
 
             crc2.restore();
-        } else if (state == "sunbathing") {
+        } else if (_state == "sunbathing") {
 
             crc2.save();
             crc2.translate(_position.x, _position.y);
