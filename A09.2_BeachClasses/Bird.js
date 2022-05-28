@@ -10,11 +10,10 @@ var BeachClasses;
             console.log("Bird constructor");
             this.position = _position;
             this.velocity = new BeachClasses.Vector(0, 0);
-            this.velocity.random(50, 200);
+            this.velocity.random(50, 180);
             this.size = _size;
         }
         move(_timeslice) {
-            console.log("Bird move");
             let offset = new BeachClasses.Vector(this.velocity.x, this.velocity.y);
             offset.scale(_timeslice);
             this.position.add(offset);
@@ -28,7 +27,6 @@ var BeachClasses;
                 this.position.y -= BeachClasses.crc2.canvas.height;
         }
         draw() {
-            console.log("Bird draw");
             BeachClasses.crc2.save();
             BeachClasses.crc2.translate(this.position.x, this.position.y);
             BeachClasses.crc2.scale(this.size, this.size);

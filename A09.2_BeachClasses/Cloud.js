@@ -5,10 +5,10 @@ var BeachClasses;
     class Cloud {
         position;
         velocity;
-        constructor(_position) {
+        constructor(_position, _velocity) {
             console.log("Cloud constructor");
             this.position = _position;
-            this.velocity = new BeachClasses.Vector(10, 0);
+            this.velocity = _velocity;
         }
         move(_timeslice) {
             console.log("Cloud move");
@@ -26,9 +26,13 @@ var BeachClasses;
         }
         draw() {
             console.log("Cloud draw");
+            let gradientCloud = BeachClasses.crc2.createRadialGradient(300, 50, 300, 600, 50, 0);
+            gradientCloud.addColorStop(0.2, "HSLA(0, 100%, 100%, 1)");
+            gradientCloud.addColorStop(1, "HSLA(0, 100%, 100%, 0)");
+            BeachClasses.crc2.fillStyle = gradientCloud;
             BeachClasses.crc2.save();
             BeachClasses.crc2.translate(this.position.x, this.position.y);
-            BeachClasses.crc2.stroke(BeachClasses.cloudsPath);
+            BeachClasses.crc2.fill(BeachClasses.cloudsPath);
             BeachClasses.crc2.restore();
         }
     }

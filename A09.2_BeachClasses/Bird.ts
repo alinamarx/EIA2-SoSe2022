@@ -12,13 +12,13 @@ namespace BeachClasses {
             this.position = _position;
             
             this.velocity = new Vector(0, 0);
-            this.velocity.random(50, 200);
+            this.velocity.random(50, 180);
 
             this.size = _size;
         }
 
         move(_timeslice: number): void {
-            console.log("Bird move");
+            
             let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
             offset.scale(_timeslice);
             this.position.add(offset);
@@ -34,7 +34,7 @@ namespace BeachClasses {
         }
 
         draw(): void {
-            console.log("Bird draw");
+
             crc2.save();
             crc2.translate(this.position.x, this.position.y);
             crc2.scale(this.size, this.size);

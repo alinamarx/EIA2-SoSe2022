@@ -2,17 +2,29 @@
 var BeachClasses;
 (function (BeachClasses) {
     console.log("main");
-    window.addEventListener("load", paintCanvas);
-    let canvas;
+    window.addEventListener("load", handleLoad);
     let birds = [];
     let clouds = [];
+    function handleLoad(_event) {
+        BeachClasses.canvas = document.querySelector("canvas");
+        BeachClasses.crc2 = BeachClasses.canvas.getContext("2d");
+        BeachClasses.createPaths();
+        BeachClasses.crc2.lineWidth = 2;
+        BeachClasses.crc2.lineCap = "round";
+        BeachClasses.crc2.lineJoin = "round";
+        BeachClasses.crc2.save();
+        createBirds(6);
+        BeachClasses.crc2.restore();
+        createClouds(120, 20);
+        window.setInterval(update, 20);
+    }
     function createBirds(_nBirds) {
         console.log("create Birds");
         for (let i = 0; i < _nBirds; i++) {
             let randomSize = randomNumberGenerator(1, 3);
             let spawnRandomizer = randomNumberGenerator(0, 1);
-            let randomPositionX = randomNumberGenerator(0, canvas.width);
-            let randomPositionY = randomNumberGenerator(0, canvas.height);
+            let randomPositionX = randomNumberGenerator(0, BeachClasses.canvas.width);
+            let randomPositionY = randomNumberGenerator(0, BeachClasses.canvas.height);
             let fixedPosition = 0;
             let position;
             if (spawnRandomizer == 0) {
@@ -27,12 +39,13 @@ var BeachClasses;
     }
     function createClouds(_firstCloudY, _secondCloudY) {
         console.log("create Clouds");
-        let positionFirst = new BeachClasses.Vector(0, _firstCloudY);
-        let positionSecond = new BeachClasses.Vector(canvas.width, _secondCloudY);
-        let cloud1 = new BeachClasses.Cloud(positionFirst);
-        let cloud2 = new BeachClasses.Cloud(positionSecond);
-        clouds.push(cloud1);
-        clouds.push(cloud2);
+        let positionFirst = new BeachClasses.Vector(-30, _firstCloudY);
+        let velocityFirst = new BeachClasses.Vector(10, 0);
+        let positionSecond = new BeachClasses.Vector(1000, _secondCloudY);
+        let velocitySecond = new BeachClasses.Vector(-10, 0);
+        let cloud1 = new BeachClasses.Cloud(positionFirst, velocityFirst);
+        let cloud2 = new BeachClasses.Cloud(positionSecond, velocitySecond);
+        clouds.push(cloud1, cloud2);
         console.log(clouds);
     }
     function randomNumberGenerator(_min, _max) {
@@ -40,44 +53,42 @@ var BeachClasses;
         return random;
     }
     function update() {
-        console.log("Update");
+        paintCanvas();
         for (let bird of birds) {
             bird.move(1 / 50);
             bird.draw();
         }
-        console.log(birds);
-        console.log(clouds);
         for (let cloud of clouds) {
-            let radiusParticle = 40;
-            let gradientCloud = BeachClasses.crc2.createRadialGradient(0, 0, 0, 0, 0, radiusParticle);
-            gradientCloud.addColorStop(0.2, "HSLA(0, 100%, 100%, 1)");
-            gradientCloud.addColorStop(1, "HSLA(0, 100%, 100%, 0)");
-            BeachClasses.crc2.fillStyle = gradientCloud;
             cloud.move(1 / 50);
             cloud.draw();
         }
     }
     function paintCanvas() {
-        canvas = document.querySelector("canvas");
-        BeachClasses.crc2 = canvas.getContext("2d");
         colorBackground();
         drawSun();
         drawBeach();
-        drawPlants({ x: 1000, y: 200 });
-        drawPlants({ x: 910, y: 230 });
-        drawPlants({ x: 1300, y: 270 });
-        drawPeople("swimming", { x: 150, y: 280 });
-        drawPeople("swimming", { x: 210, y: 265 });
-        drawPeople("swimming", { x: 500, y: 500 });
-        drawPeople("swimming", { x: 460, y: 430 });
-        drawPeople("surfing", { x: 120, y: 480 });
-        drawPeople("surfing", { x: 200, y: 380 });
-        drawPeople("sunbathing", { x: 920, y: 410 });
-        drawPeople("sunbathing", { x: 960, y: 440 });
-        BeachClasses.createPaths();
-        createBirds(6);
-        createClouds(140, 50);
-        window.setInterval(update, 20);
+        let elementsPosition = new BeachClasses.Vector(710, 185);
+        drawPlants(elementsPosition);
+        elementsPosition.set(800, 220);
+        drawPlants(elementsPosition);
+        elementsPosition.set(935, 245);
+        drawPlants(elementsPosition);
+        elementsPosition.set(150, 280);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(210, 265);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(500, 500);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(460, 430);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(120, 480);
+        drawPeople("surfing", elementsPosition);
+        elementsPosition.set(200, 380);
+        drawPeople("surfing", elementsPosition);
+        elementsPosition.set(920, 410);
+        drawPeople("sunbathing", elementsPosition);
+        elementsPosition.set(960, 440);
+        drawPeople("sunbathing", elementsPosition);
     }
     function colorBackground() {
         let sky = BeachClasses.crc2.createLinearGradient(0, 0, 0, 800);
@@ -85,14 +96,14 @@ var BeachClasses;
         sky.addColorStop(0.15, "#FFB6C1");
         sky.addColorStop(0.3, "#ff781f");
         BeachClasses.crc2.fillStyle = sky;
-        BeachClasses.crc2.fillRect(0, 0, canvas.width, canvas.height);
+        BeachClasses.crc2.fillRect(0, 0, BeachClasses.canvas.width, BeachClasses.canvas.height);
         let ocean = BeachClasses.crc2.createLinearGradient(0, 0, 0, 700);
         ocean.addColorStop(0.28, "white");
         ocean.addColorStop(0.38, "#ff781f");
         ocean.addColorStop(0.5, "HSL(240, 50%, 45%)");
         ocean.addColorStop(0.8, "#4C125E");
         BeachClasses.crc2.fillStyle = ocean;
-        BeachClasses.crc2.fillRect(0, 250, canvas.width, 700);
+        BeachClasses.crc2.fillRect(0, 250, BeachClasses.canvas.width, 700);
     }
     function drawSun() {
         let r1 = 20;
@@ -135,7 +146,7 @@ var BeachClasses;
         BeachClasses.crc2.restore();
     }
     function drawPlants(_position) {
-        let nStrands = 70;
+        let nStrands = 50;
         let strand = new Path2D();
         BeachClasses.crc2.fillStyle = "#285D34";
         BeachClasses.crc2.lineWidth = 10;
@@ -147,12 +158,16 @@ var BeachClasses;
         BeachClasses.crc2.save();
         BeachClasses.crc2.translate(_position.x, _position.y);
         for (let drawn = 0; drawn < nStrands; drawn++) {
-            BeachClasses.crc2.save();
-            let x = (Math.random() - 0.5) * 750;
-            let y = (Math.random() - 0.5) * 35;
-            BeachClasses.crc2.translate(x, y);
             BeachClasses.crc2.fill(strand);
-            BeachClasses.crc2.restore();
+            BeachClasses.crc2.translate(5, -6);
+            BeachClasses.crc2.fill(strand);
+            BeachClasses.crc2.translate(10, 3);
+            BeachClasses.crc2.fill(strand);
+            BeachClasses.crc2.translate(0, -2);
+            BeachClasses.crc2.fill(strand);
+            BeachClasses.crc2.translate(15, 5);
+            BeachClasses.crc2.fill(strand);
+            BeachClasses.crc2.translate(20, 0);
         }
         BeachClasses.crc2.restore();
     }

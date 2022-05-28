@@ -1,16 +1,31 @@
 namespace BeachClasses {
     console.log("main");
 
-    window.addEventListener("load", paintCanvas);
-    let canvas: HTMLCanvasElement;
+    window.addEventListener("load", handleLoad);
+    export let canvas: HTMLCanvasElement;
     export let crc2: CanvasRenderingContext2D;
+    export let canvasWidth: number;
 
     let birds: Bird [] = [];
     let clouds: Cloud[] = [];
 
-    interface Vector {
-        x: number;
-        y: number;
+    function handleLoad(_event: Event): void {
+        
+        canvas = <HTMLCanvasElement>document.querySelector("canvas");
+        crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+
+        createPaths();
+        
+        crc2.lineWidth = 2;
+        crc2.lineCap = "round";
+        crc2.lineJoin = "round";
+
+        crc2.save();
+        createBirds(6);
+        crc2.restore();
+
+        createClouds(120, 20);
+        window.setInterval(update, 20);
     }
 
     function createBirds(_nBirds: number): void {
@@ -37,12 +52,14 @@ namespace BeachClasses {
     function createClouds(_firstCloudY: number, _secondCloudY: number): void {
         console.log("create Clouds");
     
-        let positionFirst: BeachClasses.Vector = new Vector(0, _firstCloudY);
-        let positionSecond: BeachClasses.Vector = new Vector(canvas.width, _secondCloudY);
-        let cloud1: Cloud = new Cloud(positionFirst);
-        let cloud2: Cloud = new Cloud(positionSecond);
-        clouds.push(cloud1);
-        clouds.push(cloud2);
+        let positionFirst: BeachClasses.Vector = new Vector(-30, _firstCloudY);
+        let velocityFirst: Vector = new Vector(10, 0);
+    
+        let positionSecond: BeachClasses.Vector = new Vector(1000, _secondCloudY);
+        let velocitySecond: Vector = new Vector(-10, 0);
+        let cloud1: Cloud = new Cloud(positionFirst, velocityFirst);
+        let cloud2: Cloud = new Cloud(positionSecond, velocitySecond);
+        clouds.push(cloud1, cloud2);
 
         console.log(clouds);
     }
@@ -53,22 +70,14 @@ namespace BeachClasses {
     }
 
     function update(): void {
-        console.log("Update");
+        paintCanvas();
 
         for (let bird of birds) {
             bird.move(1 / 50);
             bird.draw();
         }
-        console.log(birds);
-        console.log(clouds);
 
         for (let cloud of clouds) {
-
-            let radiusParticle: number = 40;
-        let gradientCloud: CanvasGradient = crc2.createRadialGradient(0, 0, 0, 0, 0, radiusParticle);
-        gradientCloud.addColorStop(0.2, "HSLA(0, 100%, 100%, 1)");
-        gradientCloud.addColorStop(1, "HSLA(0, 100%, 100%, 0)");
-        crc2.fillStyle = gradientCloud;
             cloud.move(1 / 50);
             cloud.draw();
         }
@@ -76,32 +85,33 @@ namespace BeachClasses {
 
     function paintCanvas(): void {
 
-        canvas = <HTMLCanvasElement>document.querySelector("canvas");
-        crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
-
         colorBackground();
         drawSun();
 
         drawBeach();
-        drawPlants({ x: 1000, y: 200 });
-        drawPlants({ x: 910, y: 230 });
-        drawPlants({ x: 1300, y: 270 });
+        let elementsPosition: Vector = new Vector(710, 185);
+        drawPlants(elementsPosition);
+        elementsPosition.set(800, 220);
+        drawPlants(elementsPosition);
+        elementsPosition.set(935, 245);
+        drawPlants(elementsPosition);
 
-        drawPeople("swimming", { x: 150, y: 280 });
-        drawPeople("swimming", { x: 210, y: 265 });
-        drawPeople("swimming", { x: 500, y: 500 });
-        drawPeople("swimming", { x: 460, y: 430 });
-        drawPeople("surfing", { x: 120, y: 480 });
-        drawPeople("surfing", { x: 200, y: 380 });
-        drawPeople("sunbathing", { x: 920, y: 410 });
-        drawPeople("sunbathing", { x: 960, y: 440 });
-
-        createPaths();
-        createBirds(6);
-
-        createClouds(140, 50);
-
-        window.setInterval(update, 20);
+        elementsPosition.set(150, 280);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(210, 265);
+        drawPeople("swimming", elementsPosition);        
+        elementsPosition.set(500, 500);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(460, 430);
+        drawPeople("swimming", elementsPosition);
+        elementsPosition.set(120, 480);
+        drawPeople("surfing", elementsPosition);
+        elementsPosition.set(200, 380);
+        drawPeople("surfing", elementsPosition);
+        elementsPosition.set(920, 410);
+        drawPeople("sunbathing", elementsPosition);
+        elementsPosition.set(960, 440);
+        drawPeople("sunbathing", elementsPosition);
     }
 
     function colorBackground(): void {
@@ -174,7 +184,7 @@ namespace BeachClasses {
 
     function drawPlants(_position: Vector): void {
 
-        let nStrands: number = 70;
+        let nStrands: number = 50;
         let strand: Path2D = new Path2D();
 
         crc2.fillStyle = "#285D34";
@@ -191,12 +201,16 @@ namespace BeachClasses {
 
         for (let drawn: number = 0; drawn < nStrands; drawn++) {
 
-            crc2.save();
-            let x: number = (Math.random() - 0.5) * 750;
-            let y: number = (Math.random() - 0.5) * 35;
-            crc2.translate(x, y);
             crc2.fill(strand);
-            crc2.restore();
+            crc2.translate(5, -6);
+            crc2.fill(strand);
+            crc2.translate(10, 3);
+            crc2.fill(strand);
+            crc2.translate(0, -2);
+            crc2.fill(strand);
+            crc2.translate(15, 5);
+            crc2.fill(strand);
+            crc2.translate(20, 0);
         }
 
         crc2.restore();
